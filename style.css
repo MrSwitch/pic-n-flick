@@ -1,0 +1,139 @@
+﻿input{
+	font-size:inherit;
+}
+body{
+	font-size:200%;
+	font-family:Verdana, Geneva, Tahoma, sans-serif;
+	text-align:center;
+}
+header:before{
+	content:"Pick'n'Flick";
+	font-size:3em;
+	font-weight:bold;
+	color:white;
+	z-index:0;
+	color:rgba(255,255,255,0.3);
+}
+
+	body,header,footer{
+		-webkit-background-size: 3px 3px;
+		background-image: -webkit-linear-gradient( 0deg, hsla(0,0%,0%,0) 0, hsla(0,0%,10%,1) 3px), -webkit-linear-gradient( 90deg, hsla(0,0%,0%,0) 0, hsla(0,0%,10%,1) 5px);
+		background-image: -moz-linear-gradient( hsl(0,0%,11%), hsl(0,0%,11%) );
+		background-image: -ms-linear-gradient( hsl(0,0%,11%), hsl(0,0%,11%) );
+		background-image: -o-linear-gradient( hsl(0,0%,11%), hsl(0,0%,11%) );
+		background-color:rgba(255,255,255,0.9);
+	}
+
+	header,
+	footer{
+		box-shadow:0 0 30px black;
+		-webkit-transition:height 1s,background-color 1s;
+		position:fixed;
+		left:0;
+		right:0;
+		height:50%;
+		z-index:10;
+	}
+
+	header{
+		border-bottom:10px solid silver;
+		top:0;
+		text-align:center;
+		padding-bottom:1px;
+	}
+		header form{
+		}
+			header input{
+				position:absolute;
+				font-size:1.2em;
+				bottom:5%;
+			}
+
+	body > ul {
+		z-index:1;
+		padding:0;
+		margin:10% 0;
+		padding-bottom:15%;
+		position:absolute;
+	}
+		ul li{
+			margin:0;
+			padding:0;
+			display:inline-block;
+			text-align:justify;
+			line-height:1em;
+		}
+			ul li img{
+				height:100px;
+				margin:5px;
+				-webkit-transition:-webkit-transform 1s;
+				-webkit-transition:transform 1s;
+				box-shadow:0 0 10px black;
+			}
+			ul li.tick img{
+				outline:4px solid red;
+				-webkit-transform:scale(0.8);
+			}
+
+
+	body > ul:after{
+		content:"...loading more";
+		color:#aaa;
+		clear:both;
+	}
+	body > ul:empty:after{
+		content:"... please wait";
+		margin-top:80%;
+		text-align:center;
+		font-family:Verdana;
+	}
+
+/**
+ * My Collection
+ */
+
+	footer{
+		border-top:10px solid silver;
+		bottom:0;
+	}
+		footer ul{
+				bottom:0;
+				margin:0;
+			}
+			footer ul li {
+				margin:-20px;
+			}
+				footer ul li img{
+					-webkit-transform:rotate(10deg);
+				}
+				footer ul li:nth-child(even) img{
+					-webkit-transform:rotate(350deg);
+				}
+
+
+/**
+ * When searching
+ */
+
+	.footer header{
+		-webkit-transition:height 1s;
+		background-color:rgba(0,0,0,0.4);
+		height:10%;
+		min-height:50px;
+	}
+	.footer footer{
+		background-color:rgba(0,0,0,0.4);
+		-webkit-transition:height 1s;
+		height:90%;
+	}
+
+	.results header,
+	.results footer{
+		background-color:rgba(0,0,0,0.4);
+		-webkit-transition:height 1s;
+		height:10%;
+		min-height:50px;
+	}
+	.results footer{
+		height:auto;
+	}
