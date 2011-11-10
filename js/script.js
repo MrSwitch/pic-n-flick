@@ -169,7 +169,7 @@
 				text : this.query,
 				format : 'json',
 				page : this.page || 1,
-				per_page : 75,
+				per_page : 100,
 			};
 			
 			var view = this;
