@@ -8,14 +8,14 @@ body{
 }
 header:before{
 	content:"Pick'n'Flick";
-	font-size:3em;
+	font-size:2.5em;
 	font-weight:bold;
 	color:white;
 	z-index:0;
 	color:rgba(255,255,255,0.3);
 }
 
-	body,header,footer{
+	body,header,footer,article{
 		-webkit-background-size: 3px 3px;
 		background-image: -webkit-linear-gradient( 0deg, hsla(0,0%,0%,0) 0, hsla(0,0%,10%,1) 3px), -webkit-linear-gradient( 90deg, hsla(0,0%,0%,0) 0, hsla(0,0%,10%,1) 5px);
 		background-image: -moz-linear-gradient( hsl(0,0%,11%), hsl(0,0%,11%) );
@@ -47,6 +47,7 @@ header:before{
 				position:absolute;
 				font-size:1.2em;
 				bottom:5%;
+				max-width:100%;
 			}
 
 	body > ul {
@@ -62,6 +63,7 @@ header:before{
 			display:inline-block;
 			text-align:justify;
 			line-height:1em;
+			position:relative;
 		}
 			ul li img{
 				height:100px;
@@ -73,6 +75,27 @@ header:before{
 			ul li.tick img{
 				outline:4px solid red;
 				-webkit-transform:scale(0.8);
+			}
+			ul li span.action{
+				display:block;
+				position:absolute;
+				top:0;
+				right:0;
+				width:24px;
+				height:24px;
+				background-color:gray;
+				background:url(action.png) no-repeat;
+				-webkit-transition:0.5s;
+				-webkit-transform:scale(0);
+				opacity:0;
+			}
+			ul li:hover span.action{
+				-webkit-transform:scale(1);
+				opacity:1;
+			}
+
+			ul.results li span.action{
+				background-position:-24px 0;
 			}
 
 
@@ -87,6 +110,27 @@ header:before{
 		text-align:center;
 		font-family:Verdana;
 	}
+	
+	article{
+		display:none;
+		background-color:rgba(0,0,0,0.3);
+		position:fixed;
+		top:0;
+		bottom:0;
+		left:0;
+		right:0;
+		z-index:30;
+	}
+	article.show{
+		display:block;
+	}
+		article.show img{
+			z-index:30;
+			margin:auto;
+			position:relative;
+			margin-top:6%;
+			box-shadow:0 0 30px black;
+		}
 
 /**
  * My Collection
@@ -114,18 +158,6 @@ header:before{
 /**
  * When searching
  */
-
-	.footer header{
-		-webkit-transition:height 1s;
-		background-color:rgba(0,0,0,0.4);
-		height:10%;
-		min-height:50px;
-	}
-	.footer footer{
-		background-color:rgba(0,0,0,0.4);
-		-webkit-transition:height 1s;
-		height:90%;
-	}
 
 	.results header,
 	.results footer{

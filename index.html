@@ -10,15 +10,20 @@
 	<header>
 		<form><input type="search" placeholder="Search flickr images" /></form>
 	</header>
-	<ul></ul>
+	<ul class="results"></ul>
 	<footer>
 		<ul></ul>
 	</footer>
 
 	<!-- _underscore templates -->
 	<script type="text/template" id="searchresults">
-		<li><img class="<%= tick ? 'tick' : '' %>" src="http://farm<%= farm %>.static.flickr.com/<%= server %>/<%= id %>_<%= secret %>_t.jpg" /></li>
+		<li><img class="<%= tick ? 'tick' : '' %>" src="http://farm<%= farm %>.static.flickr.com/<%= server %>/<%= id %>_<%= secret %>_t.jpg" /><span class="action"></span></li>
 	</script>
+
+	<script type="text/template" id="preview">
+		<img class="<%= tick ? 'tick' : '' %>" src="http://farm<%= farm %>.static.flickr.com/<%= server %>/<%= id %>_<%= secret %>_z.jpg" />
+	</script>
+	<article></article>
 	
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
 	<script src="js/underscore.js"></script>

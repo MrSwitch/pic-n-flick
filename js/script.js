@@ -47,7 +47,6 @@
 	
 		el: $("body"),
 		
-
 		tagname : 'li',
 
 		// Cache the template function for a single item.
@@ -55,10 +54,10 @@
 
 		// The DOM events specific to an item.
 		events: {
-			"click ul li img" : "toggleTick",
-			"click footer ul li img" : "remove",
-			"click footer" : "footer",
-			"click .footer header" : "header",
+			"click img" : "preview",
+			"click article" : "hidepreview",
+			"click ul.results li span.action" : "toggleTick",
+			"click footer ul li span.action" : "remove",
 			"submit form"	: "searchOnSubmit",
 			"scroll"		: "bodyScroll"
 		},
@@ -90,6 +89,20 @@
 			}, this);
 			return this;
 		},
+
+		hidepreview : function(t){
+			log("remove previewing");
+			$('article').removeClass("show").empty();
+		},
+
+		preview : function(t){
+			if($('article img').length===0){
+				log("show previewing");
+				var $li = ($(t.target).data('id')?$(t.target):$(t.target).parent()),
+					data = $li.data();
+				$('article').addClass("show").html(_.template($('#preview').html(),data)).data(data);
+			}
+		},
 		
 		remove : function(t){
 			var $li = ($(t.target).data('id')?$(t.target):$(t.target).parent()),
@@ -106,16 +119,6 @@
 
 		// AddMyOne
 		removeMyOne : function(){},
-		
-		// footer
-		footer : function(){
-			$("body").removeClass("results").removeClass("header").addClass('footer');;
-		},
-
-		// footer
-		header : function(){
-			$("body").addClass("results").removeClass("footer");
-		},
 
 		// 
 		toggleTick : function(t){
