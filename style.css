@@ -176,12 +176,12 @@ body:before{
 			footer ul li:hover {
 				z-index:10;
 			}
-				footer ul li img{
-					-webkit-transform:rotate(10deg);-moz-transform:rotate(10deg);-ms-transform:rotate(10deg);-o-transform:rotate(10deg);transform:rotate(10deg);
-				}
-				footer ul li:nth-child(even) img{
-					-webkit-transform:rotate(350deg);-moz-transform:rotate(350deg);-ms-transform:rotate(350deg);-o-transform:rotate(350deg);transform:rotate(350deg);
-				}
+			footer ul li{
+				-webkit-transform:rotate(10deg);-moz-transform:rotate(10deg);-ms-transform:rotate(10deg);-o-transform:rotate(10deg);transform:rotate(10deg);
+			}
+			footer ul li:nth-child(even){
+				-webkit-transform:rotate(350deg);-moz-transform:rotate(350deg);-ms-transform:rotate(350deg);-o-transform:rotate(350deg);transform:rotate(350deg);
+			}
 
 
 /**
