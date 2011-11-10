@@ -78,15 +78,17 @@ header:before{
 			}
 			ul li span.action{
 				display:block;
+				border:48px solid transparent;
+				border-bottom:0;
+				border-right:0;
+				border-top-color:gray;
 				position:absolute;
 				top:0;
 				right:0;
-				width:24px;
-				height:24px;
-				background-color:gray;
-				background:url(action.png) no-repeat;
+				height:0;
+				line-height:0;
 				-webkit-transition:0.5s;
-				-webkit-transform:scale(0);
+				-webkit-transform:scale(0.5);
 				opacity:0;
 			}
 			ul li:hover span.action{
@@ -94,8 +96,16 @@ header:before{
 				opacity:1;
 			}
 
-			ul.results li span.action{
-				background-position:-24px 0;
+			ul li span.action:after{
+				position:absolute;
+				color:white;
+				top:-35px;
+				left:-28px;
+				content:"-";
+				font-weight:bold;
+			}
+			ul.results li span.action:after{
+				content:"+";
 			}
 
 
