@@ -63,7 +63,7 @@
 			this.page 	  = 1; // pagination
 			this.query    = this.input.val(); //  stores the last query
 
-			 _.bindAll(this, 'render','appendItem', 'toggleTick', "search", "submit"); // every function that uses 'this' as the current object should be in here
+			 _.bindAll(this, 'render','appendItem', 'toggleTick', "search", "submit", "home"); // every function that uses 'this' as the current object should be in here
 
 			// Create our personal collection
 			this.collection = new PictureList();
@@ -75,6 +75,7 @@
 			
 			// Route
 			router.route(":query", "search", this.search);
+			router.route("", "home", this.home);
 		},
 		
 		// AddMyOne
@@ -140,6 +141,10 @@
 			this.search();
 		},
 		
+		// Home
+		home : function(){
+			this.search("");
+		},
 	
 		// If you hit return in the form we store the result and trigger the navigator
 		submit : function(e) {
@@ -154,8 +159,10 @@
 
 		// Search the flickr API
 		search : function(query){
+		
+			log("QUERY", query||this.query);
 
-			if(query&&query!==this.query){
+			if((query&&query!==this.query)||query===""){
 				this.query = query;
 				$("body > ul").empty();
 				this.page = 1;
