@@ -8,9 +8,6 @@
 	/**
 	 * The storage Model, myCollection
 	 */
-	/**
-	 * Operations performed on an item of the search result
-	 */
 	window.Picture = Backbone.Model.extend({
 
 		defaults: function(){
@@ -38,8 +35,6 @@
 	});
 	
 
-
-	
 	/**
 	 * View Model for Picture Images
 	 */
@@ -58,8 +53,8 @@
 			"click article" : "hidepreview",
 			"click ul.results li span.action" : "toggleTick",
 			"click footer ul li span.action" : "remove",
-			"submit form"	: "searchOnSubmit",
-			"scroll"		: "bodyScroll"
+			"submit form"	: "submit",
+			"scroll"		: "scroll"
 		},
 
 		// The PictureView listens for changes to its model, re-rendering.
@@ -68,7 +63,7 @@
 			this.page 	  = 1; // pagination
 			this.query    = this.input.val(); //  stores the last query
 
-			 _.bindAll(this, 'render','appendItem', 'toggleTick'); // every function that uses 'this' as the current object should be in here
+			 _.bindAll(this, 'render','appendItem', 'toggleTick', "search", "submit"); // every function that uses 'this' as the current object should be in here
 
 			// Create our personal collection
 			this.collection = new PictureList();
@@ -77,6 +72,9 @@
 			
 			this.collection.bind('reset', this.render, this); 
 			this.collection.fetch();
+			
+			// Route
+			router.route(":query", "search", this.search);
 		},
 		
 		// AddMyOne
@@ -117,9 +115,6 @@
 			$(this.template(pic.toJSON())).data(pic.toJSON()).appendTo('footer ul');
 		},
 
-		// AddMyOne
-		removeMyOne : function(){},
-
 		// 
 		toggleTick : function(t){
 
@@ -140,29 +135,41 @@
 
 		// Body scroll
 		// We might need to get more results
-		bodyScroll : function(e) {
+		scroll : function(e) {
 			// HIT THE BOTTOM
-			this.searchOnSubmit();
+			this.search();
 		},
 		
 	
-		// If you hit return in the main input field, and there is text to save,
-		// create new **Todo** model persisting it to *localStorage*.
-		searchOnSubmit : function(e) {
+		// If you hit return in the form we store the result and trigger the navigator
+		submit : function(e) {
 
-			$('body').addClass('results');
-			
-			if(this.input.val().length>1){
+			// trigger router
+			router.navigate(this.input.val(),true);
+
+			this.input.val('');
+
+			return false;
+		},
+
+		// Search the flickr API
+		search : function(query){
+
+			if(query&&query!==this.query){
+				this.query = query;
 				$("body > ul").empty();
-				this.query = this.input.val();
 				this.page = 1;
 			}
-			
+
 			// abandon?
-			if(this.query.length === 0){
+			if(!this.query || this.query.length === 0){
+				$('body').removeClass('results');
 				return;
 			}
-		
+
+			$('body').addClass('results');
+	
+
 			var qs = {
 				api_key : '1aea6bd8c6fe81f5c688ed7195691448',
 				method : 'flickr.photos.search',
@@ -184,17 +191,25 @@
 			
 			this.page++;
 
-			this.input.val('');
 			return false;
 		}
-	
-		
 	});
+	
+
+	/**
+	 * Trigger events based upon the search string
+	 */
+	var Router = Backbone.Router.extend({});
+
+	window.router = new Router();	
 
 
 	// Finally, we kick things off by creating the **App**.
 	window.App = new AppView;
-	
+
+	// And initialize the router
+	Backbone.history.start();
+
 
 	// Hack, windows scroll isn't being fired in backbone
 	// Lets trigger it
