@@ -59,7 +59,7 @@
 
 		// The PictureView listens for changes to its model, re-rendering.
 		initialize: function() {
-			this.input    = this.$("form input");
+			this.input    = this.options.$input;
 			this.page 	  = 1; // pagination
 			this.query    = this.input.val(); //  stores the last query
 
@@ -82,7 +82,7 @@
 		render: function(){
 			log("Render all");
 			var appendItem = this.appendItem;
-			$('footer ul').empty();
+			this.options.$favourites.empty();
 			_(this.collection.models).each(function(item){ // in case collection is not empty
 				appendItem(item);
 			}, this);
@@ -91,15 +91,15 @@
 
 		hidepreview : function(t){
 			log("remove previewing");
-			$('article').removeClass("show").empty();
+			this.options.$preview.removeClass("show").empty();
 		},
 
 		preview : function(t){
-			if($('article img').length===0){
+			if(this.options.$preview.find('img').length===0){
 				log("show previewing");
 				var $li = ($(t.target).data('id')?$(t.target):$(t.target).parent()),
 					data = $li.data();
-				$('article').addClass("show").html(_.template($('#preview').html(),data)).data(data);
+				this.options.$preview.addClass("show").html(_.template($('#preview').html(),data)).data(data);
 			}
 		},
 		
@@ -113,7 +113,7 @@
 		},
 
 		appendItem : function(pic){
-			$(this.template(pic.toJSON())).data(pic.toJSON()).appendTo('footer ul');
+			$(this.template(pic.toJSON())).data(pic.toJSON()).appendTo(this.options.$favourites);
 		},
 
 		// 
@@ -164,17 +164,17 @@
 
 			if((query&&query!==this.query)||query===""){
 				this.query = query;
-				$("body > ul").empty();
+				this.options.$searchresults.empty();
 				this.page = 1;
 			}
 
 			// abandon?
 			if(!this.query || this.query.length === 0){
-				$('body').removeClass('results');
+				this.options.$body.removeClass('results');
 				return;
 			}
 
-			$('body').addClass('results');
+			this.options.$body.addClass('results');
 	
 
 			var qs = {
@@ -192,7 +192,7 @@
 			$.getJSON('http://api.flickr.com/services/rest/?jsoncallback=?', qs, function(r){
 				_.each(r.photos.photo, function(o){
 					o.tick = false;
-					$(view.template(o)).data(o).appendTo("body > ul");
+					$(view.template(o)).data(o).appendTo(view.options.$searchresults);
 				});
 			});
 			
@@ -212,7 +212,13 @@
 
 
 	// Finally, we kick things off by creating the **App**.
-	window.App = new AppView;
+	window.App = new AppView({
+		$searchresults: $("body > ul"),
+		$favourites : $("footer ul"),
+		$input		: $("form input"),
+		$body		: $("body"),
+		$preview	: $("article")
+	});
 
 	// And initialize the router
 	Backbone.history.start();
