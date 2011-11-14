@@ -1,0 +1,40 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Pic'n'Flick</title>
+	<link rel="stylesheet" href="../style.css" />
+</head>
+
+<body data-bind="css: { results: query }, event : {scroll: search}">
+	<header>
+		<form data-bind="submit: submit"><input type="search" placeholder="Search flickr images" /></form>
+	</header>
+	<ul class="results" data-bind="template: {name:'photo', foreach: searchresults}"></ul>
+	<footer>
+		<ul data-bind="template: {name:'photo', foreach: favourites}"></ul>
+	</footer>
+	<article class="show" data-bind="template: {name:'preview', data:preview}, visible: preview, click: hidepreview"></article>
+	
+
+
+	<!-- jQuery/Knockout templates -->
+	<script type="text/x-jquery-tmpl" id="photo">
+		<li>
+			<img data-bind="click: showpreview" src="http://farm${ farm }.static.flickr.com/${ server }/${ id }_${ secret }_t.jpg" /><span class="action" data-bind="click: action"></span>
+		</li>
+	</script>
+
+	<script type="text/x-jquery-tmpl" id="preview">
+		{{if id}}
+			<img src="http://farm${ farm }.static.flickr.com/${ server }/${ id }_${ secret }_z.jpg" />
+		{{/if}}
+	</script>
+
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
+	<script src="jquery.tmpl.js"></script>
+	<script src="knockout.js"></script>
+	<script src="script.js"></script>
+
+</body>
+</html>
