@@ -2,34 +2,54 @@
 <html>
 
 <head>
-	<title>Pic'n'Flick</title>
-	<link rel="stylesheet" href="style.css" />
+<title>Pic 'n' Flick</title>
+<link rel="stylesheet" href="style.css" />
+<style>
+	div{
+		bottom:0;
+		position:absolute;
+		text-align:center;
+		width:100%;
+	}
+	a{
+		display:inline-block;
+		background:#222222;
+		filter: progid:DXImageTransform.Microsoft.gradient(gradientType=0,startColorstr='#30FFFFFF', endColorstr='#30000000');
+		background:-webkit-gradient(linear,left top, left bottom, from(rgba(255,255,255,0.2)), to(rgba(0,0,0,0.2)), 
+					color-stop(50%,rgba(255,255,255,0)), 
+					color-stop(50%,rgba(0,0,0,0)));
+		background: -moz-linear-gradient(rgba(255,255,255,0.2) 0,rgba(255,255,255,0) 49%,rgba(0,0,0,0) 51%,rgba(0,0,0,0.2) 100%);
+	    -webkit-box-shadow: rgba(255, 255, 255, 0.1) 0 1px inset,
+	                        rgba(0, 0, 0, 0.4) 0px 1px 1px;
+	    -moz-box-shadow: rgba(255, 255, 255, 0.1) 0 1px inset,
+	                        rgba(0, 0, 0, 0.4) 0px 1px 1px;
+		text-shadow:rgba(0, 0, 0, 0.4) 0px 1px;
+	
+		-webkit-border-radius:3px;
+		-moz-border-radius:3px;
+		border-radius:3px;
+		padding:3px 6px;
+		color:white;/*IE*/
+		color:rgba(255,255,255,0.5);
+		-webkit-user-select:none;
+		-moz-user-select:none;
+		font-family:"Lucida Grande", Arial, sans-serif;
+		font-size:2em;
+		text-decoration:none;
+		cursor:pointer;
+		vertical-align: middle;	}
+	p{
+		color:white;
+	}
+</style>
 </head>
 
 <body>
-	<header>
-		<form><input type="search" placeholder="Search flickr images" /></form>
-	</header>
-	<ul class="results"></ul>
 	<footer>
-		<ul></ul>
+		<p>one application... written more times than neccessary</p>
+		<a href="knockout/" style="background-color:rgba(208, 84, 0,0.8)"><img src="http://knockoutjs.com/img/ko-logo.png"/></a> vs. 
+		<a href="backbone/" style="background-color:rgba(222,222,222,0.8);"><img src="http://documentcloud.github.com/backbone/docs/images/backbone.png"/></a>
 	</footer>
-
-	<!-- _underscore templates -->
-	<script type="text/template" id="searchresults">
-		<li><img class="<%= tick ? 'tick' : '' %>" src="http://farm<%= farm %>.static.flickr.com/<%= server %>/<%= id %>_<%= secret %>_t.jpg" /><span class="action"></span></li>
-	</script>
-
-	<script type="text/template" id="preview">
-		<img class="<%= tick ? 'tick' : '' %>" src="http://farm<%= farm %>.static.flickr.com/<%= server %>/<%= id %>_<%= secret %>_z.jpg" />
-	</script>
-	<article></article>
-	
-	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"></script>
-	<script src="js/underscore.js"></script>
-	<script src="js/backbone.js"></script>
-	<script src="js/backbone-localstorage.js"></script>
-	<script src="js/script.js"></script>
-
 </body>
+
 </html>
